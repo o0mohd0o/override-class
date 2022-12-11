@@ -1,0 +1,149 @@
+{
+    "ves_vendor_sales_order": {
+        "column": {
+            "entity_id": true,
+            "vendor_id": true,
+            "order_id": true,
+            "state": true,
+            "status": true,
+            "shipping_description": true,
+            "base_discount_amount": true,
+            "base_grand_total": true,
+            "base_shipping_invoiced": true,
+            "base_shipping_refunded": true,
+            "base_shipping_amount": true,
+            "base_shipping_tax_amount": true,
+            "base_subtotal": true,
+            "base_total_invoiced": true,
+            "base_total_paid": true,
+            "base_total_refunded": true,
+            "base_tax_amount": true,
+            "discount_amount": true,
+            "grand_total": true,
+            "shipping_amount": true,
+            "shipping_invoiced": true,
+            "shipping_refunded": true,
+            "shipping_tax_amount": true,
+            "subtotal": true,
+            "tax_amount": true,
+            "total_invoiced": true,
+            "total_paid": true,
+            "total_refunded": true,
+            "total_qty_ordered": true,
+            "subtotal_incl_tax": true,
+            "weight": true,
+            "shipping_method": true,
+            "created_at": true,
+            "updated_at": true,
+            "shipping_incl_tax": true,
+            "base_shipping_incl_tax": true,
+            "total_due": true,
+            "base_total_due": true,
+            "base_tax_canceled": true,
+            "tax_canceled": true,
+            "tax_invoiced": true,
+            "base_tax_invoiced": true,
+            "tax_refunded": true,
+            "base_tax_refunded": true,
+            "base_subtotal_incl_tax": true,
+            "shipping_tax_refunded": true,
+            "base_shipping_tax_refunded": true
+        },
+        "index": {
+            "VES_VENDOR_SALES_ORDER_STATE": true,
+            "VES_VENDOR_SALES_ORDER_STATUS": true,
+            "VES_VENDOR_SALES_ORDER_CREATED_AT": true,
+            "VES_VENDOR_SALES_ORDER_UPDATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "VES_VENDOR_SALES_ORDER_VENDOR_ID_VES_VENDOR_ENTITY_ENTITY_ID": true,
+            "VES_VENDOR_SALES_ORDER_ORDER_ID_SALES_ORDER_ENTITY_ID": true
+        }
+    },
+    "ves_vendor_sales_invoice": {
+        "column": {
+            "entity_id": true,
+            "vendor_id": true,
+            "vendor_order_id": true,
+            "invoice_id": true,
+            "base_grand_total": true,
+            "shipping_tax_amount": true,
+            "tax_amount": true,
+            "base_tax_amount": true,
+            "base_shipping_tax_amount": true,
+            "base_discount_amount": true,
+            "grand_total": true,
+            "shipping_amount": true,
+            "subtotal_incl_tax": true,
+            "base_subtotal_incl_tax": true,
+            "base_shipping_amount": true,
+            "total_qty": true,
+            "subtotal": true,
+            "base_subtotal": true,
+            "discount_amount": true,
+            "state": true,
+            "created_at": true,
+            "updated_at": true,
+            "shipping_incl_tax": true,
+            "base_shipping_incl_tax": true,
+            "base_total_refunded": true,
+            "discount_description": true,
+            "customer_note": true
+        },
+        "index": {
+            "VES_VENDOR_SALES_INVOICE_GRAND_TOTAL": true,
+            "VES_VENDOR_SALES_INVOICE_STATE": true,
+            "VES_VENDOR_SALES_INVOICE_CREATED_AT": true,
+            "VES_VENDOR_SALES_INVOICE_UPDATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_F1D6EDEF245FEBE212C727A03BE8C926": true
+        }
+    },
+    "quote_item": {
+        "column": {
+            "vendor_id": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "vendor_id": true,
+            "vendor_order_id": true
+        }
+    },
+    "sales_invoice_item": {
+        "column": {
+            "vendor_invoice_id": true
+        }
+    },
+    "sales_shipment": {
+        "column": {
+            "vendor_id": true,
+            "vendor_order_id": true
+        }
+    },
+    "sales_shipment_grid": {
+        "column": {
+            "vendor_id": true,
+            "vendor_order_id": true
+        }
+    },
+    "sales_creditmemo": {
+        "column": {
+            "vendor_order_id": true
+        }
+    },
+    "sales_creditmemo_grid": {
+        "column": {
+            "vendor_order_id": true
+        }
+    },
+    "sales_order_status_history": {
+        "column": {
+            "vendor_id": true,
+            "vendor_order_status": true
+        }
+    }
+}

@@ -1,0 +1,67 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Template for displaying grouped product price
+ * @var $block \Magento\Catalog\Block\Product\View\BaseImage
+ * @var $block \Magento\GroupedProduct\Block\Product\View\Type\Grouped
+ */
+?>
+<?php
+$blockObj= $block->getLayout()->createBlock('Bnaia\GroupedProduct\Block\Product');
+$minProduct = $block->getSaleableItem()
+    ->getPriceInfo()
+    ->getPrice(\Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE)
+    ->getMinProduct();
+
+$_product = $block->getPriceType('final_price')->getProduct();
+$prodcutPrice = $_product->getData('group_product_price');
+$productSpecialPrice = $_product->getData('group_product_special_price');
+$associatedProducts = $_product->getTypeInstance()->getAssociatedProducts($_product);
+$currentProductId = $_product->getData('entity_id');
+$grouped = $blockObj->getCurrentProduct($currentProductId);
+
+//$writer = new \Zend_Log_Writer_Stream(BP . '/var/log/test6.log');
+//$logger = new \Zend_Log();
+//$logger->addWriter($writer);
+
+if ($_product->getTypeId() == 'grouped'){
+    // how do I now get associated products of $product?
+    $associatedProducts = $_product->getTypeInstance()->getAssociatedProducts($_product);
+}
+
+//$logger->info(json_encode($grouped->getData()));
+//$logger->info(json_encode($associatedProducts));
+
+$totalPrice = 0;
+$totalSpecialPrice = 0;
+foreach ($associatedProducts as $child) {
+    if ($child->getId() != $grouped) {
+        $price = $child->getData('price');
+        $specialPrice = $child->getData('special_price');
+        $qty = $child->getData('qty');
+        $subTotalPrice = $price * $qty;
+        $subTotalSpecialPrice = $specialPrice * $qty;
+        $totalPrice += $subTotalPrice;
+        if(!$specialPrice){
+            $totalSpecialPrice += $subTotalPrice;
+        }
+        $totalSpecialPrice += $subTotalSpecialPrice;
+    }
+}
+?>
+<div class="price-box">
+    <?php if ($minProduct && \Magento\Framework\Pricing\Render::ZONE_ITEM_VIEW != $block->getZone()) : ?>
+        <p class="minimal-price">
+            <span class="special-price">
+                <span class="price"><?= $blockObj->getFormattedPrice($totalSpecialPrice) ?></span>
+            </span>
+            <span class="old-price">
+                <span class="price"><?= $blockObj->getFormattedPrice($totalPrice) ?></span>
+            </span>
+        </p>
+    <?php endif ?>
+</div>

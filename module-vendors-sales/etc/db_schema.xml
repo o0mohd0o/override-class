@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="ves_vendor_sales_order" resource="default" engine="innodb" comment="Vendor Flat Order">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="int" name="vendor_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor ID"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" identity="false"
+                comment="Order ID"/>
+        <column xsi:type="varchar" name="state" nullable="true" length="32" comment="State"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="32" comment="Status"/>
+        <column xsi:type="varchar" name="shipping_description" nullable="true" length="255"
+                comment="Shipping Description"/>
+        <column xsi:type="decimal" name="base_discount_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Discount Amount"/>
+        <column xsi:type="decimal" name="base_grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Grand Total"/>
+        <column xsi:type="decimal" name="base_shipping_invoiced" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Shipping Invoiced"/>
+        <column xsi:type="decimal" name="base_shipping_refunded" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Shipping Refunded"/>
+        <column xsi:type="decimal" name="base_shipping_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Shipping Amount"/>
+        <column xsi:type="decimal" name="base_shipping_tax_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Shipping Tax Amount"/>
+        <column xsi:type="decimal" name="base_subtotal" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Subtotal"/>
+        <column xsi:type="decimal" name="base_total_invoiced" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Total Invoiced"/>
+        <column xsi:type="decimal" name="base_total_paid" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Total Paid"/>
+        <column xsi:type="decimal" name="base_total_refunded" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Total Refunded"/>
+        <column xsi:type="decimal" name="base_tax_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Tax Amount"/>
+        <column xsi:type="decimal" name="discount_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Discount Amount"/>
+        <column xsi:type="decimal" name="grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Grand Total"/>
+        <column xsi:type="decimal" name="shipping_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Shipping Amount"/>
+        <column xsi:type="decimal" name="shipping_invoiced" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Shipping Invoiced"/>
+        <column xsi:type="decimal" name="shipping_refunded" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Shipping Refunded"/>
+        <column xsi:type="decimal" name="shipping_tax_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Shipping Tax Amount"/>
+        <column xsi:type="decimal" name="subtotal" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Subtotal"/>
+        <column xsi:type="decimal" name="tax_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Tax Amount"/>
+        <column xsi:type="decimal" name="total_invoiced" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Total Invoiced"/>
+        <column xsi:type="decimal" name="total_paid" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Total Paid"/>
+        <column xsi:type="decimal" name="total_refunded" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Total Refunded"/>
+        <column xsi:type="decimal" name="total_qty_ordered" scale="4" precision="12" unsigned="false" nullable="true"
+                comment="Total Qty Ordered"/>
+        <column xsi:type="decimal" name="subtotal_incl_tax" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Subtotal Incl Tax"/>
+        <column xsi:type="decimal" name="weight" scale="4" precision="12" unsigned="false" nullable="true"
+                comment="Weight"/>
+        <column xsi:type="varchar" name="shipping_method" nullable="true" length="120"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <column xsi:type="decimal" name="shipping_incl_tax" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Shipping Incl Tax"/>
+        <column xsi:type="decimal" name="base_shipping_incl_tax" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Shipping Incl Tax"/>
+        <column xsi:type="decimal" name="total_due" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Total Due"/>
+        <column xsi:type="decimal" name="base_total_due" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Total Due"/>
+        <column xsi:type="decimal" name="base_tax_canceled" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Tax Canceled"/>
+        <column xsi:type="decimal" name="tax_canceled" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Tax Canceled"/>
+        <column xsi:type="decimal" name="tax_invoiced" scale="4" precision="20" unsigned="false" nullable="true"
+                default="0" comment="Tax Invoiced"/>
+        <column xsi:type="decimal" name="base_tax_invoiced" scale="4" precision="20" unsigned="false" nullable="true"
+                default="0" comment="Base Tax Invoiced"/>
+        <column xsi:type="decimal" name="tax_refunded" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Tax Refunded"/>
+        <column xsi:type="decimal" name="base_tax_refunded" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Tax Refunded"/>
+        <column xsi:type="decimal" name="base_subtotal_incl_tax" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Subtotal Incl Tax"/>
+        <column xsi:type="decimal" name="shipping_tax_refunded" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Shipping Tax Refunded"/>
+        <column xsi:type="decimal" name="base_shipping_tax_refunded" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Shipping Tax Refunded"/>
+
+        <column xsi:type="decimal" name="adjustment_negative" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Adjustment Negative"/>
+        <column xsi:type="decimal" name="base_adjustment_negative" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Adjustment Negative"/>
+        <column xsi:type="decimal" name="adjustment_positive" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="BAdjustment Positive"/>
+        <column xsi:type="decimal" name="base_adjustment_positive" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Adjustment Positive"/>
+
+        <column xsi:type="decimal" name="discount_tax_compensation_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Discount Tax Compensation Amount"/>
+
+        <column xsi:type="decimal" name="base_discount_tax_compensation_amount" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Base Discount Tax Compensation Amount"/>
+
+        <column xsi:type="decimal" name="shipping_discount_tax_compensation_amount" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Shipping Discount Tax Compensation Amount"/>
+
+        <column xsi:type="decimal" name="base_shipping_discount_tax_compensation_amnt" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Base Shipping Discount Tax Compensation Amount"/>
+
+        <column xsi:type="decimal" name="discount_tax_compensation_invoiced" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Discount Tax Compensation Invoiced"/>
+
+        <column xsi:type="decimal" name="base_discount_tax_compensation_invoiced" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Base Discount Tax Compensation Invoiced"/>
+
+        <column xsi:type="decimal" name="discount_tax_compensation_refunded" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Discount Tax Compensation Refunded"/>
+
+        <column xsi:type="decimal" name="base_discount_tax_compensation_refunded" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Base Discount Tax Compensation Refunded"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+        <constraint xsi:type="foreign" referenceId="VENDOR_FOREIGN_KEY_VENDOR_ID"
+                    table="ves_vendor_sales_order" column="vendor_id" referenceTable="ves_vendor_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+
+        <constraint xsi:type="foreign" referenceId="VENDOR_FOREIGN_KEY_ORDER_ID"
+                    table="ves_vendor_sales_order" column="order_id" referenceTable="sales_order"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+
+        <index referenceId="SALES_ORDER_STATE" indexType="btree">
+            <column name="state"/>
+        </index>
+
+        <index referenceId="SALES_ORDER_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+        <index referenceId="SALES_ORDER_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+        <index referenceId="SALES_ORDER_UPDATED_AT" indexType="btree">
+            <column name="updated_at"/>
+        </index>
+    </table>
+
+    <table name="ves_vendor_sales_invoice" resource="default" engine="innodb" comment="Vendor Sales Flat Invoice">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="int" name="vendor_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor ID"/>
+        <column xsi:type="int" name="vendor_order_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor Order ID"/>
+        <column xsi:type="int" name="invoice_id" unsigned="true" nullable="false" identity="false"
+                comment="Invoice ID"/>
+        <column xsi:type="decimal" name="base_grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Grand Total"/>
+        <column xsi:type="decimal" name="shipping_tax_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Shipping Tax Amount"/>
+        <column xsi:type="decimal" name="tax_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Tax Amount"/>
+        <column xsi:type="decimal" name="base_tax_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Tax Amount"/>
+        <column xsi:type="decimal" name="base_shipping_tax_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Shipping Tax Amount"/>
+        <column xsi:type="decimal" name="base_discount_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Discount Amount"/>
+        <column xsi:type="decimal" name="grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Grand Total"/>
+        <column xsi:type="decimal" name="shipping_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Shipping Amount"/>
+        <column xsi:type="decimal" name="subtotal_incl_tax" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Subtotal Incl Tax"/>
+        <column xsi:type="decimal" name="base_subtotal_incl_tax" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Subtotal Incl Tax"/>
+        <column xsi:type="decimal" name="base_shipping_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Shipping Amount"/>
+        <column xsi:type="decimal" name="total_qty" scale="4" precision="12" unsigned="false" nullable="true"
+                comment="Total Qty"/>
+        <column xsi:type="decimal" name="subtotal" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Subtotal"/>
+        <column xsi:type="decimal" name="base_subtotal" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Subtotal"/>
+        <column xsi:type="decimal" name="discount_amount" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Discount Amount"/>
+        <column xsi:type="int" name="state" unsigned="false" nullable="true" identity="false"
+                comment="State"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <column xsi:type="decimal" name="shipping_incl_tax" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Shipping Incl Tax"/>
+        <column xsi:type="decimal" name="base_shipping_incl_tax" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Base Shipping Incl Tax"/>
+
+        <column xsi:type="decimal" name="discount_tax_compensation_amount" scale="4" precision="20" unsigned="false"
+                nullable="true" comment="Discount Tax Compensation Amount"/>
+
+        <column xsi:type="decimal" name="base_discount_tax_compensation_amount" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Base Discount Tax Compensation Amount"/>
+
+        <column xsi:type="decimal" name="shipping_discount_tax_compensation_amount" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Shipping Discount Tax Compensation Amount"/>
+
+        <column xsi:type="decimal" name="base_shipping_discount_tax_compensation_amnt" scale="4" precision="20"
+                unsigned="false" nullable="true" comment="Base Shipping Discount Tax Compensation Amount"/>
+
+        <column xsi:type="decimal" name="base_total_refunded" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Total Refunded"/>
+        <column xsi:type="varchar" name="discount_description" nullable="true" length="255"
+                comment="Discount Description"/>
+        <column xsi:type="text" name="customer_note" nullable="true" comment="Customer Note"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="SALES_INVOICE_GRAND_TOTAL" indexType="btree">
+            <column name="grand_total"/>
+        </index>
+        <index referenceId="SALES_INVOICE_STATE" indexType="btree">
+            <column name="state"/>
+        </index>
+        <index referenceId="SALES_INVOICE_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+        <index referenceId="SALES_INVOICE_UPDATED_AT" indexType="btree">
+            <column name="updated_at"/>
+        </index>
+
+        <constraint xsi:type="foreign" referenceId="VENDOR_FOREIGN_KEY_INVOICE_ID"
+                    table="ves_vendor_sales_invoice" column="invoice_id" referenceTable="sales_invoice"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+
+        <constraint xsi:type="foreign" referenceId="VENDOR_FOREIGN_KEY_VENDOR_ID"
+                    table="ves_vendor_sales_invoice" column="vendor_order_id" referenceTable="ves_vendor_sales_order"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+
+    </table>
+
+    <table name="quote_item">
+        <column xsi:type="int" name="vendor_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor ID"/>
+    </table>
+
+    <table name="sales_order_item">
+        <column xsi:type="int" name="vendor_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor ID"/>
+        <column xsi:type="int" name="vendor_order_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor Order ID"/>
+    </table>
+
+    <table name="sales_invoice_item">
+        <column xsi:type="int" name="vendor_invoice_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor Invoice ID"/>
+    </table>
+
+    <table name="sales_shipment">
+        <column xsi:type="int" name="vendor_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor ID"/>
+        <column xsi:type="int" name="vendor_order_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor Order ID"/>
+    </table>
+
+    <table name="sales_shipment_grid">
+        <column xsi:type="int" name="vendor_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor ID"/>
+        <column xsi:type="int" name="vendor_order_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor Order ID"/>
+    </table>
+
+    <table name="sales_creditmemo">
+        <column xsi:type="int" name="vendor_order_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor Order ID"/>
+    </table>
+
+    <table name="sales_creditmemo_grid">
+        <column xsi:type="int" name="vendor_order_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor Order ID"/>
+    </table>
+
+    <table name="sales_order_status_history">
+        <column xsi:type="int" name="vendor_id" unsigned="true" nullable="false" identity="false"
+                comment="Vendor ID"  default="0" />
+        <column xsi:type="int" name="vendor_order_status" unsigned="true" nullable="false" identity="false"
+                comment="Vendor Order Status" default="0" />
+    </table>
+
+</schema>

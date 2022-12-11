@@ -1,0 +1,261 @@
+<?php
+/**
+ * Grouped product data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\BaseImage
+ * @var $block \Magento\GroupedProduct\Block\Product\View\Type\Grouped
+ */
+?>
+<?php $block->setPreconfiguredValue(); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $_associatedProducts = $block->getAssociatedProducts(); ?>
+<?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
+<?php
+$blockObj= $block->getLayout()->createBlock('Bnaia\GroupedProduct\Block\Product');
+$storeMediaUrl = $blockObj->getStoreMediaUrl();
+$currency = $blockObj->getStoreCurrency();
+$currencySymbol = $currency->getCurrencySymbol();
+?>
+<style>
+    .control.qty {
+        text-align: center;
+    }
+    .box-tocart .field.qty .control {
+        display: inline-block;
+        width: auto
+    }
+
+    .cart-qty {
+        display: flex;
+        position: relative;
+        max-width: 130px
+    }
+
+    .cart-qty .qty {
+        background: transparent;
+        text-align: center;
+        color: #363e47;
+        padding: 0 35px;
+        width: 100px !important;
+        font-weight: 600;
+        height: 35px
+    }
+
+    .qty-ctl button {
+        min-width: unset;
+        width: auto;
+        margin: 0;
+        padding: 0;
+        top: 0;
+        position: absolute;
+        height: 35px;
+        width: 35px;
+        line-height: 35px;
+        color: #000;
+        border-color: transparent;
+        background: transparent
+    }
+
+    .qty-ctl button.increase {
+        right: 0
+    }
+
+    .qty-ctl button.increase:before {
+        display: inline-block;
+        font-family: 'CodazonFont';
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\e9b4";
+        font-size: 12px;
+        speak: none
+    }
+
+    .qty-ctl button.increase {
+        right: auto;
+        left: 0
+    }
+
+    .qty-ctl button.decrease {
+        left: 0
+    }
+
+    .qty-ctl button.decrease:before {
+        display: inline-block;
+        font-family: 'CodazonFont';
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\e9b3";
+        font-size: 12px;
+        speak: none
+    }
+
+    .qty-ctl button.decrease {
+        left: auto;
+        right: 0
+    }
+
+    .qty-ctl button:hover:before {
+        color: #c70032
+    }
+
+    td.col.thumbnail, td.col.qty, th.col.qty {
+        text-align: center;
+    }
+
+
+</style>
+<div class="table-wrapper grouped">
+    <table class="table data grouped"
+           id="super-product-table"
+           data-mage-init='{ "Magento_GroupedProduct/js/product-ids-resolver": {} }'>
+        <caption class="table-caption"><?= $block->escapeHtml(__('Grouped product items')) ?></caption>
+        <thead>
+        <tr>
+            <th></th>
+            <th class="col item" scope="col"><?= $block->escapeHtml(__('Product Name')) ?></th>
+            <?php if ($_product->isSaleable()) : ?>
+                <th class="col qty" scope="col"><?= $block->escapeHtml(__('Qty')) ?></th>
+            <?php endif; ?>
+        </tr>
+        </thead>
+
+        <?php if ($_hasAssociatedProducts) : ?>
+            <tbody>
+            <?php foreach ($_associatedProducts as $_item) : ?>
+                <?php $childProduct = $blockObj->getProductBySku($_item->getSku()); ?>
+                <tr>
+                    <td data-th="<?= $block->escapeHtml(__('Thumbnail')) ?>" class="col thumbnail">
+                        <img width="50" height="50" src="<?= $storeMediaUrl.'catalog/product'.$childProduct->getImage() ?>"/>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>" class="col item">
+                        <strong class="product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+                        <?php if ($block->getCanShowProductPrice($_product)) : ?>
+                            <?php if ($block->getCanShowProductPrice($_item)) : ?>
+                                <?= /* @noEscape */ $block->getProductPrice($_item) ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
+                    <?php if ($_product->isSaleable()) : ?>
+                        <td data-th="<?= $block->escapeHtml(__('Qty')) ?>" class="col qty">
+                            <?php if ($_item->isSaleable()) : ?>
+
+                                <div class="control qty">
+                                    <div class="cart-qty">
+                                        <div class="qty-ctl">
+                                            <button title="<?= __('Decrease') ?>" type="button" data-role="change_cart_qty" class="decrease" data-qty="-1" class="decrease"></button>
+                                        </div>
+                                        <input type="number"
+                                               name="super_group[<?= $block->escapeHtmlAttr($_item->getId()) ?>]"
+                                               data-selector="super_group[<?= $block->escapeHtmlAttr($_item->getId()) ?>]"
+                                               value="<?= $block->escapeHtmlAttr($_item->getQty() * 1) ?>"
+                                               title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                                               class="input-text qty"
+                                               data-validate="{'validate-grouped-qty':'#super-product-table'}"
+                                               data-errors-message-box="#validation-message-box"/>
+                                        <div class="qty-ctl">
+                                            <button title="<?= __('Increase') ?>" type="button" data-role="change_cart_qty" data-qty="1" class="increase"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php else : ?>
+                                <div class="stock unavailable" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                                    <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+                <?php if ($block->getCanShowProductPrice($_product)
+                    && $block->getCanShowProductPrice($_item)
+                    && trim($block->getProductPriceHtml(
+                        $_item,
+                        \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                    ))) : ?>
+                    <tr class="row-tier-price">
+                        <td colspan="2">
+                            <?= $block->getProductPriceHtml(
+                                $_item,
+                                \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                            ) ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </tbody>
+        <?php else : ?>
+            <tbody>
+            <tr>
+                <td class="unavailable"
+                    colspan="<?php if ($_product->isSaleable()) : ?>4<?php else : ?>3<?php endif; ?>">
+                    <?= $block->escapeHtml(__('No options of this product are available.')) ?>
+                </td>
+            </tr>
+            </tbody>
+        <?php endif; ?>
+    </table>
+</div>
+<div id="grouped-table-total">
+    <span class="product-info-main">
+        <span class="price-box">
+            <span class="price-wrapper">
+                <span>الإجمالي: </span> <span id="total-price" class="price"></span>
+            </span>
+        </span>
+    </span>
+</div>
+<div id="validation-message-box"></div>
+<script>
+
+    require(['jquery', 'jquery/ui', 'Magento_Catalog/js/price-utils'], function ($, ko, priceUtils) {
+        'use strict';
+        $(document).ready(function () {
+            let qtySelector = 'table.data.grouped tr .qty input';
+
+            function setTotal(totalPrice) {
+                return $('#grouped-table-total #total-price').html
+                (priceUtils.formatPrice(totalPrice) + ' ' + '<?= $currencySymbol ?>');
+            }
+            function sumTotal(){
+                let rowSelector = 'table.data.grouped tr';
+                let totalPrice = 0;
+                $(rowSelector).each(function(){
+                    let priceSelector = 'span[data-price-type=finalPrice]';
+                    let selectFinalPrice = jQuery(this).find(priceSelector);
+                    let price = selectFinalPrice.attr('data-price-amount');
+                    price = parseFloat(price);
+                    let qtySelector = '.qty input';
+                    let qtyAmount = jQuery(this).find(qtySelector).val();
+                    qtyAmount = parseFloat(qtyAmount);
+                    let itemPrice = price * qtyAmount;
+                    if (!isNaN(price) && !isNaN(qtyAmount)) {
+                        totalPrice += itemPrice;
+                    }
+                });
+                console.log(totalPrice);
+                setTotal(totalPrice);
+            }
+
+            sumTotal();
+            jQuery("table.data.grouped input").on("input", function() {
+                sumTotal();
+            });
+            $(".qty-ctl button.decrease").on('click',function(){
+                $(qtySelector).on('change', function() {
+                    sumTotal();
+                });
+            });
+            $(".qty-ctl button.increase").on('click',function(){
+                $(qtySelector).on('change', function() {
+                    sumTotal();
+                });
+            });
+
+        });
+    });
+</script>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="vendor_order_cancel_after">
+        <observer name="vnecoms_vendorssales_vendor_order_cancel_after" instance="Vnecoms\VendorsSales\Observer\VendorCancelOrder" />
+    </event>
+
+</config>
